@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d0b12">
+<title>Laella Tarot | Taróloga e Magista</title>
+<link rel="icon" type="image/png" href="assets/imagens/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --fundo: #0d0b12;
+    --fundo-2: #15111d;
+    --card: #1b1625;
+    --roxo: #7d6a8c;
+    --roxo-claro: #a794b8;
+    --prata: #ddd6e0;
+    --prata-suave: #a9a1b0;
+    --content-max-width: 360px;
+    --layout-gap: 16px;
+  }
+  @media (min-width: 768px)  { :root { --content-max-width: 728px; } }
+  @media (min-width: 1025px) { :root { --content-max-width: min(92vw, 1400px); } }
+
+  .section-inner { max-width: var(--content-max-width); margin: 0 auto; padding: 0 20px; }
+  @media (min-width: 1025px) { .section-inner { padding: 0 60px; } }
+  html { scroll-behavior: smooth; background-color: var(--fundo); color-scheme: dark; }
+  body {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 18px;
+    color: var(--prata);
+  }
+  body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(ellipse at top, #1d1729 0%, var(--fundo) 60%); }
+  h1, h2, h3, .btn, .tag-pill, nav a { font-family: 'Cinzel', Georgia, serif; }
+
+  /* HEADER */
+  header { border-bottom: 1px solid rgba(125,106,140,.35); position: sticky; top: 0; background: rgba(13,11,18,.92); backdrop-filter: blur(8px); z-index: 50; }
+  header .section-inner { display: flex; align-items: center; justify-content: space-between; padding-top: 10px; padding-bottom: 10px; gap: var(--layout-gap); position: relative; }
+  .logo img { width: 58px; height: 58px; border-radius: 50%; display: block; }
+  .menu-wrap { display: flex; align-items: center; gap: var(--layout-gap); }
+  nav ul { display: flex; list-style: none; gap: 28px; }
+  nav a { text-decoration: none; color: var(--prata); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; }
+  nav a:hover { color: var(--roxo-claro); }
+  .btn { display: inline-block; text-decoration: none; background: transparent; color: var(--prata); border: 1px solid var(--roxo); padding: 11px 24px; border-radius: 30px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: .2s; }
+  .btn:hover { background: linear-gradient(170deg,#5b3f7a,#2f2145); color: #fff; border-color: var(--roxo-claro); box-shadow: 0 0 20px rgba(160,110,200,.35); }
+  .btn.cheio { background: linear-gradient(170deg,#4a3266,#241a36); color: var(--prata); border-color: rgba(167,148,184,.6); box-shadow: 0 0 16px rgba(125,106,140,.25); transition: .3s; }
+  .btn.cheio:hover { background: linear-gradient(170deg,#5b3f7a,#2f2145); color: #fff; border-color: var(--roxo-claro); box-shadow: 0 0 24px rgba(160,110,200,.4); transform: translateY(-2px); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+  .hamburger span { width: 24px; height: 2px; background: var(--prata); border-radius: 2px; }
+
+  /* HERO */
+  .hero.section-inner { padding-top: 48px; padding-bottom: 40px; }
+  .hero-card { position: relative; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid rgba(167,148,184,.5); border-radius: 24px; overflow: hidden; background: var(--fundo-2); }
+  .divisor-mistico { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 8px auto 32px; max-width: var(--content-max-width); color: var(--roxo-claro); font-size: 13px; letter-spacing: 4px; }
+  .divisor-mistico::before, .divisor-mistico::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(125,106,140,.6), transparent); max-width: 160px; }
+  .hero-image { position: relative; overflow: hidden; min-height: 420px; background: var(--fundo-2); }
+  .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hero-content { position: relative; background: linear-gradient(170deg,#241a36,#120e1a); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 48px; gap: 18px; }
+  .tagline { font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--roxo-claro); }
+  .hero-content h1 { font-size: 46px; font-weight: 500; line-height: 1.05; letter-spacing: 3px; }
+  .hero-content p { line-height: 1.55; color: var(--prata-suave); max-width: 380px; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 4px; }
+  .tag-pill { border: 1px solid rgba(167,148,184,.5); border-radius: 20px; padding: 7px 12px; font-size: 10px; letter-spacing: 2px; white-space: nowrap; }
+
+  .hero-content::before, .sobre-content::before { content: ''; position: absolute; inset: 12px; border: 1px solid rgba(125,106,140,.45); border-radius: 14px; pointer-events: none; }
+
+  /* SOBRE */
+  #sobre { padding-top: 20px; padding-bottom: 40px; }
+  .sobre-card { position: relative; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; background: var(--card); border: 1px solid rgba(167,148,184,.5); border-radius: 24px; }
+  .sobre-content { position: relative; background: linear-gradient(170deg,#241a36,#120e1a); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 48px; }
+  .sobre-media { position: relative; overflow: hidden; min-height: 420px; background: linear-gradient(135deg, var(--fundo-2), var(--card)); }
+  .sobre-media img, .sobre-media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .sobre-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .8s ease; }
+  .sobre-slide.ativo { opacity: 1; }
+  .sobre-seta { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(167,148,184,.5); background: rgba(20,14,28,.55); color: var(--prata); font-size: 16px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: .2s; }
+  .sobre-seta:hover { background: linear-gradient(170deg,#5b3f7a,#2f2145); color: #fff; border-color: var(--roxo-claro); box-shadow: 0 0 16px rgba(160,110,200,.35); }
+  .sobre-seta.prev { left: 12px; } .sobre-seta.next { right: 12px; }
+  .sobre-dots { position: absolute; bottom: 14px; left: 0; right: 0; z-index: 2; display: flex; justify-content: center; gap: 8px; }
+  .sobre-dot { width: 8px; height: 8px; padding: 0; border-radius: 50%; border: 1px solid rgba(255,255,255,.7); background: transparent; cursor: pointer; transition: .2s; }
+  .sobre-dot.ativo { background: #fff; }
+  .runa-div { color: var(--roxo-claro); letter-spacing: 12px; font-size: 20px; margin-bottom: 14px; }
+  .sobre-card h2 { font-size: 28px; font-weight: 500; letter-spacing: 2px; margin-bottom: 14px; }
+  .sobre-card p { max-width: 560px; margin: 0 auto; line-height: 1.6; color: var(--prata-suave); }
+
+  /* CATEGORIAS */
+  #consultas { padding-top: 20px; padding-bottom: 20px; }
+  .titulo-secao { text-align: center; font-size: 24px; font-weight: 500; letter-spacing: 3px; margin-bottom: 30px; }
+  .categorias { display: flex; flex-wrap: wrap; justify-content: center; gap: 26px 16px; margin-bottom: 48px; }
+  .categoria-item { text-align: center; text-decoration: none; width: calc(16.66% - 14px); color: var(--prata); }
+  .categoria-img { aspect-ratio: 1/1; max-width: 96px; margin: 0 auto 10px; border-radius: 50%; border: 1px solid var(--roxo); background: var(--card); display: flex; align-items: center; justify-content: center; font-size: 34px; color: var(--roxo-claro); transition: .2s; }
+  .categoria-item:hover .categoria-img { background: linear-gradient(170deg,#5b3f7a,#2f2145); color: #fff; border-color: var(--roxo-claro); box-shadow: 0 0 16px rgba(160,110,200,.35); }
+  .categoria-item span { display: block; max-width: 92px; margin: 0 auto; line-height: 1.35; font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; word-break: break-word; }
+
+  /* CARDÁPIO */
+  .menu-secao { padding-top: 12px; padding-bottom: 12px; scroll-margin-top: 80px; }
+  .menu-titulo { text-align: center; font-size: 17px; letter-spacing: 4px; text-transform: uppercase; color: var(--roxo-claro); margin-bottom: 4px; font-family: 'Cinzel', serif; }
+  .menu-desc { text-align: center; color: var(--prata-suave); font-style: italic; margin: -12px 0 22px; }
+  .carrossel-wrap { display: flex; align-items: center; gap: 10px; }
+  .carrossel-viewport { overflow: hidden; flex: 1; padding: 24px 14px; }
+  .menu-grid { display: flex; gap: 20px; transition: transform .35s ease; }
+  .menu-grid.sem-scroll { justify-content: center; }
+  .menu-grid .servico-card { flex: 0 0 100%; }
+  @media (min-width: 768px) and (max-width: 1024px) { .menu-grid .servico-card { flex-basis: calc((100% - 20px) / 2); } }
+  @media (min-width: 1025px) and (max-width: 1280px) { .menu-grid .servico-card { flex-basis: calc((100% - 40px) / 3); } }
+  @media (min-width: 1281px) { .menu-grid .servico-card { flex-basis: calc((100% - 60px) / 4); } }
+  .carrossel-seta { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--roxo); background: var(--card); color: var(--prata); font-size: 16px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: .2s; }
+  .carrossel-seta:hover { background: linear-gradient(170deg,#5b3f7a,#2f2145); color: #fff; border-color: var(--roxo-claro); box-shadow: 0 0 16px rgba(160,110,200,.35); }
+  details { border-top: 1px solid rgba(125,106,140,.25); padding-top: 8px; }
+  summary { cursor: pointer; font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--roxo-claro); list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: ' ＋'; }
+  details[open] summary::after { content: ' －'; }
+  details ul { list-style: none; margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+  details li { font-size: 15px; color: var(--prata-suave); line-height: 1.3; }
+  details li::before { content: '✦ '; color: var(--roxo-claro); font-size: 11px; }
+  .servico-sub { font-size: 14px; color: var(--roxo-claro); font-style: italic; margin-top: -4px; }
+  .servico-card { position: relative; aspect-ratio: 2/3; perspective: 1200px; transition: transform .3s; }
+  .servico-card:hover { transform: translateY(-6px); }
+  .carta-inner { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .8s cubic-bezier(.4,.2,.2,1); }
+  .servico-card.virada .carta-inner { transform: rotateY(180deg); }
+  .face { position: absolute; inset: 0; overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; text-align: center; border-radius: 14px; border: 1px solid rgba(167,148,184,.5); background: linear-gradient(170deg,#241a36,#120e1a); transition: border-color .3s; }
+  .face::before { content: ''; position: absolute; inset: 9px; border: 1px solid rgba(125,106,140,.45); border-radius: 8px; pointer-events: none; }
+  .servico-card:hover .face { border-color: var(--roxo-claro); }
+  .frente { justify-content: center; gap: 12px; padding: 40px 22px 78px; cursor: pointer; }
+  .verso { transform: rotateY(180deg); padding: 32px 22px 18px; gap: 6px; }
+  .servico-card .num { position: absolute; top: 20px; font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 4px; color: var(--roxo-claro); }
+  .servico-card .runa { font-size: 54px; line-height: 1; color: var(--roxo-claro); text-shadow: 0 0 26px rgba(167,148,184,.6); margin-bottom: 4px; }
+  .servico-card h3 { font-size: 14px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; line-height: 1.35; }
+  .servico-card .sub { font-size: 15px; font-style: italic; color: var(--roxo-claro); line-height: 1.3; }
+  .servico-card .btn-saiba-mais { position: absolute; bottom: 22px; padding: 9px 18px; font-size: 10px; }
+  .voltar { position: absolute; top: 14px; right: 16px; z-index: 2; width: 26px; height: 26px; border-radius: 50%; border: 1px solid rgba(167,148,184,.5); background: transparent; color: var(--roxo-claro); font-size: 14px; line-height: 1; cursor: pointer; transition: .25s; }
+  .voltar:hover { color: #fff; border-color: var(--roxo-claro); box-shadow: 0 0 14px rgba(160,110,200,.4); }
+  .verso h3 { font-size: 13px; letter-spacing: 2px; padding: 0 22px; }
+  .verso-corpo { flex: 1; min-height: 0; width: 100%; overflow-y: auto; padding: 8px 6px 4px; margin-top: 4px; scrollbar-width: thin; scrollbar-color: rgba(167,148,184,.4) transparent; }
+  .verso-corpo { cursor: grab; }
+  .verso.arrastando, .verso.arrastando * { cursor: grabbing; user-select: none; -webkit-user-select: none; }
+  .verso-desc { font-size: 15px; line-height: 1.4; color: var(--prata-suave); }
+  .verso-inclui-titulo { display: block; margin: 12px 0 6px; font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--roxo-claro); }
+  .verso-corpo ul { list-style: none; display: flex; flex-direction: column; gap: 4px; text-align: left; }
+  .verso-corpo li { font-size: 14px; line-height: 1.3; color: var(--prata-suave); }
+  .verso-corpo li::before { content: '✦ '; color: var(--roxo-claro); font-size: 10px; }
+  .verso-rodape { width: 100%; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 14px; padding: 10px 6px 0; border-top: 1px solid rgba(125,106,140,.3); }
+  .verso-rodape strong { font-family: 'Cinzel', serif; font-size: 18px; font-weight: 500; color: #e6dcef; }
+  .verso-rodape .btn { padding: 8px 16px; font-size: 10px; }
+  .servico-card p { font-size: 16px; line-height: 1.4; color: var(--prata-suave); flex: 1; }
+  .servico-meta { font-size: 14px; color: var(--roxo-claro); font-style: italic; }
+
+  /* FOOTER */
+  footer { margin-top: 50px; border-top: 1px solid rgba(125,106,140,.35); background: #09070d; }
+  .footer-conteudo { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 28px; padding: 26px 20px; }
+  .footer-conteudo img { width: 52px; height: 52px; border-radius: 50%; }
+  .footer-nav { display: flex; flex-wrap: wrap; gap: 18px; list-style: none; }
+  .footer-nav a, .footer-copy a { color: var(--prata); text-decoration: none; font-size: 15px; }
+  .footer-nav a:hover { color: var(--roxo-claro); }
+  .footer-social { display: flex; gap: 12px; }
+  .footer-social a { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--roxo); display: flex; align-items: center; justify-content: center; }
+  .footer-social svg { width: 16px; height: 16px; fill: var(--prata); }
+  .footer-social a:hover { background: linear-gradient(170deg,#5b3f7a,#2f2145); border-color: var(--roxo-claro); box-shadow: 0 0 16px rgba(160,110,200,.35); }
+  .footer-credito { text-align: center; font-size: 12px; letter-spacing: 1px; color: var(--prata-suave); padding: 0 20px 16px; }
+  .footer-credito a { color: var(--roxo-claro); text-decoration: none; letter-spacing: 2px; transition: .2s; }
+  .footer-credito a:hover { color: #fff; text-shadow: 0 0 12px rgba(160,110,200,.6); }
+  .footer-copy { text-align: center; font-size: 13px; color: var(--prata-suave); padding: 12px 20px; border-top: 1px solid rgba(125,106,140,.2); }
+
+
+  /* HORÁRIOS */
+  #horarios { padding-top: 40px; scroll-margin-top: 80px; }
+  .horarios-sub { text-align: center; color: var(--prata-suave); font-style: italic; margin: -18px 0 28px; }
+  .horarios-grid { display: flex; justify-content: center; }
+  .horario-card { position: relative; background: linear-gradient(170deg,#241a36,#120e1a); border: 1px solid rgba(167,148,184,.5); border-radius: 14px; padding: 34px 28px; transition: transform .3s, border-color .3s; text-align: center; display: flex; flex-direction: column; gap: 10px; }
+  .horario-card { width: calc((100% - 20px) / 2); min-width: 320px; }
+  .horario-bloco { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .horario-divisor { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 22px 0; color: var(--roxo-claro); font-size: 13px; letter-spacing: 4px; }
+  .horario-divisor::before, .horario-divisor::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(125,106,140,.6), transparent); }
+  .horario-icone { color: var(--roxo-claro); font-size: 24px; letter-spacing: 6px; }
+  .horario-card::before { content: ''; position: absolute; inset: 9px; border: 1px solid rgba(125,106,140,.45); border-radius: 8px; pointer-events: none; }
+  .horario-card:hover { transform: translateY(-4px); border-color: var(--roxo-claro); }
+  .horario-card h3 { font-size: 15px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; }
+  .horario-card strong { font-family: 'Cinzel', serif; font-size: 30px; font-weight: 500; color: #e6dcef; }
+  .horario-card p { color: var(--prata-suave); line-height: 1.5; font-size: 16px; }
+  .horarios-frase { text-align: center; margin-top: 30px; font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--roxo-claro); }
+
+  @media (max-width: 900px) {
+    .logo { order: 1; } .hamburger { display: flex; order: 2; }
+    .menu-wrap { order: 3; position: absolute; top: 100%; left: 0; right: 0; background: var(--fundo); flex-direction: column; gap: 16px; padding: 20px; border-bottom: 1px solid rgba(125,106,140,.35); display: none; }
+    .menu-wrap.aberto { display: flex; }
+    nav ul { flex-direction: column; align-items: center; gap: 16px; }
+    .hero.section-inner { padding-top: 24px; }
+    .hero-card { grid-template-columns: 1fr; }
+    .hero-image { min-height: 260px; }
+    .hero-content { padding: 28px 22px; align-items: center; text-align: center; }
+    .hero-content h1 { font-size: 36px; }
+    .tags { justify-content: center; }
+    .sobre-card { grid-template-columns: 1fr; }
+    .sobre-content { padding: 28px 20px; }
+    .sobre-media { order: -1; min-height: 260px; }
+    .categoria-item { width: calc(33.33% - 11px); }
+    .categoria-img { max-width: 76px; }
+    .categoria-item span { font-size: 9.5px; letter-spacing: .5px; max-width: 84px; }
+    .horario-card { width: 100%; min-width: 0; }
+    .carrossel-seta { width: 34px; height: 34px; font-size: 14px; }
+    .horario-card strong { font-size: 26px; }
+  }
+
+  @media (max-width: 420px) {
+    .categoria-img { max-width: 64px; font-size: 26px; }
+    .categoria-item span { font-size: 8.5px; letter-spacing: .3px; max-width: 72px; }
+    .categorias { gap: 20px 10px; }
+  }
+
+</style>
+</head>
+<body>
+
+  <header id="topo">
+    <div class="section-inner">
+      <a class="logo" href="#topo"><img src="assets/imagens/logo.png" alt="Laella Tarot"></a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <div class="menu-wrap" id="menuWrap">
+        <nav>
+          <ul>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#consultas">Consultas</a></li>
+            <li><a href="#horarios">Horários</a></li>
+            <li><a href="#contato">Contato</a></li>
+          </ul>
+        </nav>
+        <a class="btn cheio" data-agendar="Olá! Gostaria de agendar uma consulta." target="_blank" rel="noopener">Agendar</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero section-inner">
+    <div class="hero-card">
+      <div class="hero-image">
+        <video class="hero-video" src="assets/videos/hero.mp4" autoplay muted loop playsinline></video>
+      </div>
+      <div class="hero-content">
+        <span class="tagline">Taróloga &amp; Magista</span>
+        <h1>Laella Tarot</h1>
+        <p>Onde o invisível encontra a intuição. Leia os sinais, ouça o oculto: tarot, runas e oráculos para iluminar o seu caminho.</p>
+        <div class="tags">
+          <span class="tag-pill">NORSE VÖLVA</span>
+          <span class="tag-pill">TAROT</span>
+          <span class="tag-pill">RUNAS</span>
+          <span class="tag-pill">MAGIA NÓRDICA</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divisor-mistico">☽ ⋄ ✦ ⋄ ☾</div>
+
+  <section id="sobre" class="section-inner">
+    <div class="sobre-card">
+      <div class="sobre-content">
+      <div class="runa-div">ᛉ ᚱ ᛟ</div>
+      <h2>Leia os sinais, ouça o oculto</h2>
+      <p>Me chamo Larissa, ou melhor, Laella! Sou taróloga e magista, leonina com ascendente em Aquário. Desde os 18 anos caminho pelo tarot e pela magia do caos, e hoje trabalho também com baralho cigano, oráculo de Exu e runas nórdicas. Minhas consultas são acolhedoras e sinceras, pra qualquer pessoa, de qualquer lugar do mundo. Escolha abaixo a leitura que combina com o seu momento!</p>
+      </div>
+      <div class="sobre-media" id="sobreSlider">
+        <img class="sobre-slide ativo" src="assets/imagens/sobre1.jpg" alt="Laella Tarot, foto 1">
+        <img class="sobre-slide" src="assets/imagens/sobre2.jpg" alt="Laella Tarot, foto 2" loading="lazy">
+        <img class="sobre-slide" src="assets/imagens/sobre3.jpg" alt="Laella Tarot, foto 3" loading="lazy">
+        <img class="sobre-slide" src="assets/imagens/sobre4.jpg" alt="Laella Tarot, foto 4" loading="lazy">
+        <img class="sobre-slide" src="assets/imagens/sobre5.jpg" alt="Laella Tarot, foto 5" loading="lazy">
+        <img class="sobre-slide" src="assets/imagens/sobre6.jpg" alt="Laella Tarot, foto 6" loading="lazy">
+        <button type="button" class="sobre-seta prev" aria-label="Foto anterior">‹</button>
+        <button type="button" class="sobre-seta next" aria-label="Próxima foto">›</button>
+        <div class="sobre-dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="consultas" class="section-inner">
+    <h2 class="titulo-secao">Escolha seu tipo de consulta</h2>
+    <div class="categorias" id="categorias"></div>
+  </section>
+
+  <div id="cardapio"></div>
+
+  <section id="horarios" class="section-inner">
+    <h2 class="titulo-secao">Horários de Funcionamento</h2>
+    <div class="horarios-grid">
+      <div class="horario-card">
+        <div class="horario-bloco">
+          <span class="horario-icone">✧</span>
+          <h3>Segunda a Sexta</h3>
+          <strong>13:30 às 18:00</strong>
+          <p>Alguns dias eu vou abrir a mesa do jogo para receber pessoas que não podem na tarde. Então posso atender alguns agendados a partir das 22h.</p>
+        </div>
+        <div class="horario-divisor"><span>☽ ● ☾</span></div>
+        <div class="horario-bloco">
+          <h3>Sábado e Domingo</h3>
+          <strong>18:00 às 22:00</strong>
+          <p>Reserve o seu horário com antecedência.</p>
+        </div>
+      </div>
+    </div>
+    <p class="horarios-frase">ᛉ &nbsp;Seu momento é sagrado&nbsp; ᛉ</p>
+  </section>
+
+  <footer>
+    <div id="contato" class="section-inner footer-conteudo">
+      <img src="assets/imagens/logo.png" alt="Laella Tarot">
+      <ul class="footer-nav">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#consultas">Consultas</a></li>
+        <li><a href="#horarios">Horários</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/laetarot/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2c2.7 0 3.05.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.15.55.55.9 1.11 1.15 1.77.25.64.42 1.37.47 2.43.05 1.07.06 1.42.06 4.12s-.01 3.05-.06 4.12c-.05 1.06-.22 1.79-.47 2.43-.26.66-.6 1.22-1.15 1.77-.55.55-1.11.9-1.77 1.15-.64.25-1.37.42-2.43.47-1.07.05-1.42.06-4.12.06s-3.05-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47-.66-.26-1.22-.6-1.77-1.15-.55-.55-.9-1.11-1.15-1.77-.25-.64-.42-1.37-.47-2.43C2.01 15.05 2 14.7 2 12s.01-3.05.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.15-1.77.55-.55 1.11-.9 1.77-1.15.64-.25 1.37-.42 2.43-.47C8.95 2.01 9.3 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10zm0 8.2a3.2 3.2 0 110-6.4 3.2 3.2 0 010 6.4zm5.4-8.4a1.2 1.2 0 100-2.4 1.2 1.2 0 000 2.4z"/></svg>
+        </a>
+        <a data-agendar="Olá! Vim pelo site e gostaria de agendar uma consulta." target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24"><path d="M12.02 2C6.5 2 2.03 6.48 2.03 12c0 1.77.46 3.44 1.27 4.89L2 22l5.25-1.27a9.9 9.9 0 004.77 1.22h.01c5.52 0 10-4.48 10-10S17.54 2 12.02 2zm4.52 12c-.25-.13-1.47-.72-1.7-.8-.23-.08-.4-.13-.56.13-.17.25-.65.8-.8.97-.15.17-.3.19-.55.06-.25-.13-1.06-.39-2.02-1.24-.75-.66-1.25-1.48-1.4-1.73-.15-.25-.02-.39.11-.51.11-.11.25-.3.37-.44.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.23.9 2.42 1.02 2.58.13.17 1.77 2.7 4.28 3.79.6.26 1.06.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.48-.29z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-copy">© 2026 Laella Tarot. Todos os direitos reservados. · ᛉ ☾ ᛟ</div>
+    <div class="footer-credito">Website desenvolvido por <a href="https://amplifying.com.br/servicos" target="_blank" rel="noopener">AMPLIFYING</a></div>
+  </footer>
+
+  <script>
+    // ===== CONFIGURAÇÃO =====
+    // Troque pelo WhatsApp da Laella (DDI + DDD + número, só dígitos). Se deixar vazio, os botões abrem o Instagram.
+    const WHATSAPP = "5548980046732";
+    const INSTAGRAM = "laetarot";
+
+    // ===== CARDÁPIO ===== (edite nomes, descrições, valores e tópicos aqui)
+    // nome, sub (subtítulo), desc, preco, inclui (lista opcional do que a leitura traz)
+    const grupos = [
+      { id: "rapidas", icone: "ᚠ", titulo: "Consultas Rápidas", desc: "Respostas diretas para o seu momento", itens: [
+        { nome: "1 Pergunta", desc: "Uma resposta, um caminho.", preco: 20 },
+        { nome: "3 Perguntas", desc: "Mais clareza, mais direção.", preco: 35 },
+        { nome: "Pergunta de Sim ou Não", sub: "valor por pergunta", desc: "Resposta objetiva e direta.", preco: 10 },
+        { nome: "Runas Nórdicas", desc: "Orientação e sabedoria ancestral.", preco: 55 },
+        { nome: "Mesa Real", desc: "Uma conexão profunda e completa.", preco: 90 },
+      ]},
+      { id: "gerais", icone: "☾", titulo: "Caminhos & Prosperidade", desc: "Leituras completas sobre o seu momento de vida", itens: [
+        { nome: "A Profecia da Völva", sub: "Leitura geral", desc: "Compreenda o momento em que você está e os caminhos que começam a se revelar.", preco: 35, inclui: ["Momento atual","Próximos caminhos","Amor","Financeiro","Espiritualidade","Conselho final"] },
+        { nome: "O Ciclo da Lua", sub: "Leitura mensal", desc: "As principais energias, acontecimentos e possibilidades do mês.", preco: 50, inclui: ["Energia geral do mês","Amor e relacionamentos","Trabalho e finanças","Vida pessoal e emocional","Principal desafio","Oportunidade que se apresenta","O que precisa ser deixado para trás","Conselho para o mês","Runa de orientação"] },
+        { nome: "O Caminho do Guerreiro", sub: "Decisões e obstáculos", desc: "Para quem precisa tomar uma decisão, superar obstáculos ou descobrir qual caminho favorece.", preco: 110, inclui: ["Onde estou?","O que me bloqueia?","O que não estou enxergando?","Qual caminho favorece?","Próximos passos","Conselho"] },
+        { nome: "O Ouro da Cigana", sub: "Vida financeira", desc: "Compreenda sua vida financeira, oportunidades e caminhos de prosperidade.", preco: 120, inclui: ["Situação financeira atual","Bloqueios","Oportunidades","Trabalho e negócios","Próximos caminhos","Conselho"] },
+        { nome: "Sob o Véu", sub: "Leitura profunda", desc: "Investigue uma situação com mais detalhes e compreenda aquilo que permanece oculto.", preco: 160, inclui: ["Sentimentos não expressos","Padrões repetitivos","Influências","O que está oculto","Possibilidades futuras","Conselho profundo"] },
+      ]},
+      { id: "amor", icone: "ᛜ", titulo: "Amor & Relações", desc: "Sentimentos, vínculos e caminhos do coração", itens: [
+        { nome: "Os Fios de Freyja", sub: "Consulta amorosa", desc: "Compreenda sentimentos, intenções e possibilidades entre duas pessoas.", preco: 60, inclui: ["O que ele(a) sente por mim?","O que não demonstra?","Quais são suas intenções?","O que existe entre nós?","Bloqueios da conexão","Tendências para os próximos meses","Conselho"] },
+        { nome: "A Rosa de Padilha", sub: "Amor, desejo e poder pessoal", desc: "Sobre amor, desejo, autoestima e sua posição dentro de uma relação.", preco: 140, inclui: ["Como sou percebida?","Existe desejo?","O que desperto nessa pessoa?","O que posso fortalecer em mim?","Como recuperar meu poder pessoal?","Tendência da relação"] },
+        { nome: "A Rosa que Floresce", sub: "Para quem está solteiro(a)", desc: "Compreenda seus caminhos amorosos e a possibilidade de um novo encontro.", preco: 140, inclui: ["Que tipo de pessoa pode surgir?","Que energia essa pessoa carrega?","Como pode acontecer o encontro?","O que está bloqueando o amor?","O que precisa ser encerrado?","Tendência amorosa","Conselho"] },
+        { nome: "O Véu da Amizade", sub: "Análise de amizades", desc: "A verdadeira dinâmica de uma amizade: sentimentos, intenções, lealdades e influências.", preco: 50, inclui: ["O que realmente existe nessa amizade?","Como essa pessoa me enxerga?","Quais são as verdadeiras intenções dela?","Inveja, competição ou ressentimento?","Existe influência de terceiros?","A amizade tende a se fortalecer ou se afastar?","Conselho final"] },
+      ]},
+      { id: "magia", icone: "ᛉ", titulo: "Magia & Proteção", desc: "Proteção, transformação e direcionamento espiritual", itens: [
+        { nome: "As Asas da Noite", sub: "Exu Morcego", desc: "Caminhos, proteção, transformação e aquilo que precisa ser deixado para trás.", preco: 140, inclui: ["Proteção","Caminhos","Obstáculos","Bloqueios","Transformações","Conselho"] },
+        { nome: "O Caminho do Feitiço", sub: "Direcionamento mágico", desc: "Descubra se um feitiço é adequado, qual caminho mágico é mais coerente e quais cuidados tomar.", preco: 80, inclui: ["Qual é a intenção do trabalho?","O momento é favorável?","Que caminho mágico pode ser utilizado?","O que deve ser evitado?","Elementos e energias associados","Como direcionar a intenção","Conselho final para o trabalho"] },
+        { nome: "Os Rastros do Oculto", sub: "Análise de demandas e influências espirituais", desc: "Para quem suspeita de demanda, magia, inveja ou influência espiritual.", preco: 70, inclui: ["Qual é a energia atual da situação?","Há sinais simbólicos de interferência?","Parece intencional ou circunstancial?","O que pode estar sendo confundido com demanda?","Como afeta a pessoa?","Necessidade de proteção ou limpeza espiritual?","Conselho final + Runa"] },
+      ]},
+      { id: "ancestral", icone: "ᛟ", titulo: "Ancestral & Autoconhecimento", desc: "Leituras que olham para dentro e para as raízes", itens: [
+        { nome: "O Oráculo dos Ossos", sub: "Leitura ancestral", desc: "Leitura intuitiva através dos ossos para observar sinais, caminhos, bloqueios e possibilidades.", preco: 80, inclui: ["Energia atual da situação","O que está oculto","Influências ao redor","Bloqueios e obstáculos","O que precisa ser compreendido","O que está se aproximando","Caminho que tende a se abrir","Conselho dos Ossos"] },
+        { nome: "O Arcano da Alma", sub: "Seu Arcano Maior pessoal", desc: "Descubra o Arcano Maior ligado à sua data de nascimento e o que ele revela sobre sua trajetória.", preco: 50, inclui: ["Cálculo do Arcano Maior pessoal","Significado profundo","Potenciais e talentos","Desafios e aprendizados","Padrões que podem se repetir","Luz e sombra do Arcano","Conselho do seu Arcano","Runa complementar"] },
+        { nome: "O Sussurro de Loki", sub: "Leitura oracular de Loki", desc: "Para momentos de mudança, verdades a enxergar e o que já não sustenta você.", preco: 50, inclui: ["Mudanças e recomeços","Situações confusas ou inesperadas","Verdades que precisam ser enxergadas","Padrões que precisam ser rompidos","Relações e conflitos","Decisões e novos caminhos","Conselho diante de uma transformação"] },
+      ]},
+      { id: "familia", icone: "✦", titulo: "Pets & Crianças", desc: "Leituras delicadas para quem você cuida", itens: [
+        { nome: "O Sussurro dos Animais", sub: "Consulta para pets", desc: "Compreenda melhor os sentimentos, comportamentos e necessidades do seu animal.", preco: 70, inclui: ["Como seu pet está se sentindo","O que ele gostaria de comunicar","Como percebe você e o ambiente","Medos, desconfortos ou mudanças","O que pode estar precisando","Mensagem do seu pet para você","Conselho para fortalecer a conexão"] },
+        { nome: "O Encanto da Lua", sub: "Consulta para crianças", desc: "Uma leitura delicada sobre o momento emocional da criança e o que ela precisa de acolhimento.", preco: 60, inclui: ["Como a criança está se sentindo","Emoções difíceis de expressar","Medos, inseguranças e bloqueios","Como percebe o ambiente","Necessidades emocionais","Pontos de acolhimento e fortalecimento","Conselho para os responsáveis"] },
+      ]},
+    ];
+
+    // ===== RENDER =====
+    function linkAgendar(msg) {
+      return WHATSAPP
+        ? `https://api.whatsapp.com/send?phone=${WHATSAPP}&text=${encodeURIComponent(msg)}`
+        : `https://ig.me/m/${INSTAGRAM}`;
+    }
+    const brl = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+    const nav = document.getElementById('categorias');
+    const cardapio = document.getElementById('cardapio');
+
+    grupos.forEach(g => {
+      nav.insertAdjacentHTML('beforeend',
+        `<a href="#${g.id}" class="categoria-item"><div class="categoria-img">${g.icone}</div><span>${g.titulo}</span></a>`);
+
+      const sec = document.createElement('section');
+      sec.id = g.id;
+      sec.className = 'menu-secao section-inner';
+      sec.innerHTML = `<div class="menu-titulo">${g.titulo}</div>
+        <div class="carrossel-wrap">
+          <button type="button" class="carrossel-seta" aria-label="Anterior">‹</button>
+          <div class="carrossel-viewport"><div class="menu-grid"></div></div>
+          <button type="button" class="carrossel-seta" aria-label="Próximo">›</button>
+        </div>`;
+      const grid = sec.querySelector('.menu-grid');
+
+      const romano = n => ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX'][n - 1] || n;
+      g.itens.forEach((s, idx) => {
+        const card = document.createElement('div');
+        card.className = 'servico-card';
+        const inclui = s.inclui ? `<span class="verso-inclui-titulo">O que a leitura traz</span><ul>${s.inclui.map(i => `<li>${i}</li>`).join('')}</ul>` : '';
+        const msgAgendar = g.id === 'rapidas'
+          ? `Olá! Gostaria de uma Consulta Rápida de *${s.nome}*! Quando podemos marcar nossa consulta?`
+          : `Olá! Gostaria de uma consulta de ${g.titulo}, *${s.nome}*! Quando podemos marcar nossa consulta?`;
+        card.innerHTML = `
+          <div class="carta-inner">
+            <div class="face frente">
+              <span class="num">${romano(idx + 1)}</span>
+              <span class="runa">${g.icone}</span>
+              <h3>${s.nome}</h3>
+              <span class="sub">${s.sub || ''}</span>
+              <button type="button" class="btn btn-saiba-mais">Saiba mais</button>
+            </div>
+            <div class="face verso" inert>
+              <button type="button" class="voltar" aria-label="Virar a carta de volta">↺</button>
+              <h3>${s.nome}</h3>
+              ${s.sub ? `<span class="sub">${s.sub}</span>` : ''}
+              <div class="verso-corpo">
+                <p class="verso-desc">${s.desc}</p>
+                ${inclui}
+              </div>
+              <div class="verso-rodape">
+                <strong>${brl(s.preco)}</strong>
+                <a class="btn" href="${linkAgendar(msgAgendar)}" target="_blank" rel="noopener">Agendar</a>
+              </div>
+            </div>
+          </div>`;
+        card.querySelector('.frente').addEventListener('click', () => virar(card, true));
+        card.querySelector('.voltar').addEventListener('click', () => virar(card, false));
+        // arrastar com o mouse pra rolar o texto do verso (no toque a rolagem já é nativa)
+        const verso = card.querySelector('.verso'), corpo = card.querySelector('.verso-corpo');
+        let arrastando = false, y0 = 0, topo0 = 0;
+        verso.addEventListener('pointerdown', e => {
+          if (e.pointerType !== 'mouse' || e.button !== 0 || e.target.closest('button, a')) return;
+          if (corpo.scrollHeight <= corpo.clientHeight) return;
+          arrastando = true; y0 = e.clientY; topo0 = corpo.scrollTop;
+          verso.setPointerCapture(e.pointerId); verso.classList.add('arrastando');
+        });
+        verso.addEventListener('pointermove', e => { if (arrastando) corpo.scrollTop = topo0 - (e.clientY - y0); });
+        const soltar = () => { arrastando = false; verso.classList.remove('arrastando'); };
+        verso.addEventListener('pointerup', soltar);
+        verso.addEventListener('pointercancel', soltar);
+        // toque no celular: segurar em qualquer ponto do verso e arrastar rola o texto
+        let ty0 = 0, ttopo0 = 0, tmodo = null;
+        verso.addEventListener('touchstart', e => {
+          if (e.touches.length !== 1 || e.target.closest('a')) { tmodo = 'nativo'; return; }
+          ty0 = e.touches[0].clientY; ttopo0 = corpo.scrollTop; tmodo = null;
+        }, { passive: true });
+        verso.addEventListener('touchmove', e => {
+          if (tmodo === 'nativo') return;
+          const dy = e.touches[0].clientY - ty0;
+          if (tmodo === null) {
+            if (Math.abs(dy) < 4) return;
+            const max = corpo.scrollHeight - corpo.clientHeight;
+            const podeRolar = max > 0 && ((dy < 0 && corpo.scrollTop < max) || (dy > 0 && corpo.scrollTop > 0));
+            tmodo = podeRolar ? 'texto' : 'nativo';
+            if (tmodo === 'nativo') return;
+          }
+          corpo.scrollTop = ttopo0 - dy;
+          e.preventDefault();
+        }, { passive: false });
+        verso.addEventListener('touchend', () => { tmodo = null; });
+        grid.appendChild(card);
+      });
+      cardapio.appendChild(sec);
+      initCarrossel(sec);
+    });
+
+    document.querySelectorAll('[data-agendar]').forEach(a => a.href = linkAgendar(a.dataset.agendar));
+
+    // ===== CARROSSEL =====
+    function itensVisiveis() {
+      const w = window.innerWidth;
+      if (w < 768) return 1;
+      if (w <= 1024) return 2;
+      if (w <= 1280) return 3;
+      return 4;
+    }
+
+    function initCarrossel(sec) {
+      const viewport = sec.querySelector('.carrossel-viewport');
+      const grid = sec.querySelector('.menu-grid');
+      const [btnPrev, btnNext] = sec.querySelectorAll('.carrossel-seta');
+      const total = grid.children.length;
+      let indice = 0;
+
+      function render() {
+        const visiveis = itensVisiveis();
+        const maxIndice = Math.max(0, total - visiveis);
+        const escondeSetas = total <= visiveis;
+        btnPrev.style.display = escondeSetas ? 'none' : '';
+        btnNext.style.display = escondeSetas ? 'none' : '';
+        grid.classList.toggle('sem-scroll', escondeSetas);
+        if (indice > maxIndice) indice = maxIndice;
+        const larguraCard = grid.children[0].getBoundingClientRect().width;
+        const gap = 20;
+        const deslocamento = indice * (larguraCard + gap);
+        grid.style.transform = `translateX(-${deslocamento}px)`;
+      }
+
+      btnNext.addEventListener('click', () => {
+        const visiveis = itensVisiveis();
+        const maxIndice = Math.max(0, total - visiveis);
+        indice = indice >= maxIndice ? 0 : indice + 1;
+        render();
+      });
+      btnPrev.addEventListener('click', () => {
+        const visiveis = itensVisiveis();
+        const maxIndice = Math.max(0, total - visiveis);
+        indice = indice <= 0 ? maxIndice : indice - 1;
+        render();
+      });
+      window.addEventListener('resize', render);
+      render();
+    }
+
+    // ===== VIRAR CARTA =====
+    function virar(card, ligar) {
+      if (ligar) document.querySelectorAll('.servico-card.virada').forEach(c => { if (c !== card) virar(c, false); });
+      card.classList.toggle('virada', ligar);
+      card.querySelector('.frente').inert = ligar;
+      card.querySelector('.verso').inert = !ligar;
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') document.querySelectorAll('.servico-card.virada').forEach(c => virar(c, false));
+    });
+
+    // Menu hambúrguer
+    const hb = document.getElementById('hamburgerBtn'), mw = document.getElementById('menuWrap');
+    hb.addEventListener('click', () => hb.setAttribute('aria-expanded', mw.classList.toggle('aberto')));
+    mw.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { mw.classList.remove('aberto'); hb.setAttribute('aria-expanded', 'false'); }));
+
+    // Slider do Sobre
+    (function () {
+      const box = document.getElementById('sobreSlider');
+      const slides = box.querySelectorAll('.sobre-slide');
+      const dotsBox = box.querySelector('.sobre-dots');
+      let atual = 0, timer;
+      const dots = [...slides].map((_, i) => {
+        const d = document.createElement('button');
+        d.type = 'button'; d.className = 'sobre-dot'; d.setAttribute('aria-label', 'Foto ' + (i + 1));
+        d.addEventListener('click', () => { ir(i); reiniciar(); });
+        dotsBox.appendChild(d); return d;
+      });
+      function ir(n) {
+        slides[atual].classList.remove('ativo'); dots[atual].classList.remove('ativo');
+        atual = (n + slides.length) % slides.length;
+        slides[atual].classList.add('ativo'); dots[atual].classList.add('ativo');
+      }
+      function iniciar() { parar(); timer = setInterval(() => ir(atual + 1), 4500); }
+      function parar() { clearInterval(timer); }
+      function reiniciar() { iniciar(); }
+      box.querySelector('.prev').addEventListener('click', () => { ir(atual - 1); reiniciar(); });
+      box.querySelector('.next').addEventListener('click', () => { ir(atual + 1); reiniciar(); });
+      box.addEventListener('mouseenter', parar);
+      box.addEventListener('mouseleave', iniciar);
+      let x0 = null;
+      box.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+      box.addEventListener('touchend', e => {
+        if (x0 === null) return;
+        const dx = e.changedTouches[0].clientX - x0; x0 = null;
+        if (Math.abs(dx) > 40) { ir(atual + (dx < 0 ? 1 : -1)); reiniciar(); }
+      });
+      document.addEventListener('visibilitychange', () => document.hidden ? parar() : iniciar());
+      dots[0].classList.add('ativo');
+      iniciar();
+    })();
+  </script>
+</body>
+</html>
