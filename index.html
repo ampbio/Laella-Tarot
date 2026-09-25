@@ -63,6 +63,20 @@
   .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
   .hamburger span { width: 24px; height: 2px; background: var(--prata); border-radius: 2px; }
 
+  /* SELETOR DE IDIOMA */
+  .lang-switch { display: flex; align-items: center; gap: 6px; order: 3; margin-left: 4px; }
+  .lang-btn { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0; border-radius: 50%; border: 1px solid rgba(167,148,184,.4); background: transparent; color: var(--prata-suave); font-family: 'Cinzel', serif; font-size: 9.5px; letter-spacing: .5px; line-height: 1; cursor: pointer; opacity: .6; transition: .2s; }
+  .lang-btn:hover { opacity: 1; color: var(--prata); }
+  .lang-btn.ativo { opacity: 1; color: #fff; background: linear-gradient(170deg,#5b3f7a,#2f2145); border-color: var(--roxo-claro); box-shadow: 0 0 12px rgba(160,110,200,.35); }
+  .lang-btn:focus-visible { outline: 2px solid var(--roxo-claro); outline-offset: 2px; }
+
+  /* Seletor de idioma discreto no rodapé */
+  .footer-lang-inline { display: inline-flex; align-items: center; gap: 6px; margin-left: 4px; }
+  .lang-btn-footer { background: none; border: none; padding: 2px 4px; color: var(--prata-suave); font-size: 12px; letter-spacing: 1px; font-family: inherit; cursor: pointer; opacity: .65; transition: .2s; }
+  .lang-btn-footer:hover { opacity: 1; color: var(--prata); }
+  .lang-btn-footer.ativo { opacity: 1; color: var(--roxo-claro); text-decoration: underline; text-underline-offset: 3px; }
+  .footer-lang-inline .separador { opacity: .5; }
+
   /* HERO */
   .hero.section-inner { padding-top: 48px; padding-bottom: 40px; }
   .hero-card { position: relative; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid rgba(167,148,184,.5); border-radius: 24px; overflow: hidden; background: var(--fundo-2); }
@@ -131,6 +145,16 @@
   .servico-sub { font-size: 14px; color: var(--roxo-claro); font-style: italic; margin-top: -4px; }
   .servico-card { position: relative; aspect-ratio: 2/3; perspective: 1200px; transition: transform .3s; }
   .servico-card:hover { transform: translateY(-6px); }
+  .estrela-flip {
+    position: absolute; z-index: 6; pointer-events: none; border-radius: 50%;
+    background: radial-gradient(circle, #fff 0%, var(--roxo-claro) 55%, transparent 75%);
+    opacity: 0; animation: cintilar .75s ease forwards;
+  }
+  @keyframes cintilar {
+    0%   { opacity: 0; transform: scale(0) rotate(0deg); }
+    35%  { opacity: 1; transform: scale(1) rotate(90deg); }
+    100% { opacity: 0; transform: scale(.2) rotate(180deg) translateY(-14px); }
+  }
   .carta-inner { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .8s cubic-bezier(.4,.2,.2,1); }
   .servico-card.virada .carta-inner { transform: rotateY(180deg); }
   .face { position: absolute; inset: 0; overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; text-align: center; border-radius: 14px; border: 1px solid rgba(167,148,184,.5); background: linear-gradient(170deg,#241a36,#120e1a); transition: border-color .3s; }
@@ -195,7 +219,7 @@
   .horarios-frase { text-align: center; margin-top: 30px; font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--roxo-claro); }
 
   @media (max-width: 900px) {
-    .logo { order: 1; } .hamburger { display: flex; order: 2; }
+    .logo { order: 1; } .lang-switch { order: 2; } .hamburger { display: flex; order: 3; }
     .menu-wrap { order: 3; position: absolute; top: 100%; left: 0; right: 0; background: var(--fundo); flex-direction: column; gap: 16px; padding: 20px; border-bottom: 1px solid rgba(125,106,140,.35); display: none; }
     .menu-wrap.aberto { display: flex; }
     nav ul { flex-direction: column; align-items: center; gap: 16px; }
@@ -229,17 +253,21 @@
   <header id="topo">
     <div class="section-inner">
       <a class="logo" href="#topo"><img src="assets/imagens/logo.png" alt="Laella Tarot"></a>
-      <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <div class="lang-switch" role="group" aria-label="Idioma / Language">
+        <button type="button" class="lang-btn" id="langPt" data-lang="pt" aria-label="Mudar para Português" aria-pressed="true">PT</button>
+        <button type="button" class="lang-btn" id="langEn" data-lang="en" aria-label="Switch to English" aria-pressed="false">EN</button>
+      </div>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menu" aria-expanded="false" data-i18n-aria="aria_abrir_menu"><span></span><span></span><span></span></button>
       <div class="menu-wrap" id="menuWrap">
         <nav>
           <ul>
-            <li><a href="#sobre">Sobre</a></li>
-            <li><a href="#consultas">Consultas</a></li>
-            <li><a href="#horarios">Horários</a></li>
-            <li><a href="#contato">Contato</a></li>
+            <li><a href="#sobre" data-i18n="nav_sobre">Sobre</a></li>
+            <li><a href="#consultas" data-i18n="nav_consultas">Consultas</a></li>
+            <li><a href="#horarios" data-i18n="nav_horarios">Horários</a></li>
+            <li><a href="#contato" data-i18n="nav_contato">Contato</a></li>
           </ul>
         </nav>
-        <a class="btn cheio" data-agendar="Olá! Gostaria de agendar uma consulta." target="_blank" rel="noopener">Agendar</a>
+        <a class="btn cheio" data-agendar-key="header" target="_blank" rel="noopener" data-i18n="btn_agendar">Agendar</a>
       </div>
     </div>
   </header>
@@ -250,14 +278,14 @@
         <video class="hero-video" src="assets/videos/hero.mp4" autoplay muted loop playsinline></video>
       </div>
       <div class="hero-content">
-        <span class="tagline">Taróloga &amp; Magista</span>
+        <span class="tagline" data-i18n="hero_tagline">Taróloga &amp; Magista</span>
         <h1>Laella Tarot</h1>
-        <p>Onde o invisível encontra a intuição. Leia os sinais, ouça o oculto: tarot, runas e oráculos para iluminar o seu caminho.</p>
+        <p data-i18n="hero_paragrafo">Onde o invisível encontra a intuição. Leia os sinais, ouça o oculto: tarot, runas e oráculos para iluminar o seu caminho.</p>
         <div class="tags">
           <span class="tag-pill">NORSE VÖLVA</span>
           <span class="tag-pill">TAROT</span>
-          <span class="tag-pill">RUNAS</span>
-          <span class="tag-pill">MAGIA NÓRDICA</span>
+          <span class="tag-pill" data-i18n="tag_runas">RUNAS</span>
+          <span class="tag-pill" data-i18n="tag_magia">MAGIA NÓRDICA</span>
         </div>
       </div>
     </div>
@@ -269,8 +297,8 @@
     <div class="sobre-card">
       <div class="sobre-content">
       <div class="runa-div">ᛉ ᚱ ᛟ</div>
-      <h2>Leia os sinais, ouça o oculto</h2>
-      <p>Me chamo Larissa, ou melhor, Laella! Sou taróloga e magista, leonina com ascendente em Aquário. Desde os 18 anos caminho pelo tarot e pela magia do caos, e hoje trabalho também com baralho cigano, oráculo de Exu e runas nórdicas. Minhas consultas são acolhedoras e sinceras, pra qualquer pessoa, de qualquer lugar do mundo. Escolha abaixo a leitura que combina com o seu momento!</p>
+      <h2 data-i18n="sobre_titulo">Leia os sinais, ouça o oculto</h2>
+      <p data-i18n="sobre_paragrafo">Me chamo Larissa, ou melhor, Laella! Sou taróloga e magista, leonina com ascendente em Aquário. Desde os 18 anos caminho pelo tarot e pela magia do caos, e hoje trabalho também com baralho cigano, oráculo de Exu e runas nórdicas. Minhas consultas são acolhedoras e sinceras, pra qualquer pessoa, de qualquer lugar do mundo. Escolha abaixo a leitura que combina com o seu momento!</p>
       </div>
       <div class="sobre-media" id="sobreSlider">
         <img class="sobre-slide ativo" src="assets/imagens/sobre1.jpg" alt="Laella Tarot, foto 1">
@@ -279,61 +307,69 @@
         <img class="sobre-slide" src="assets/imagens/sobre4.jpg" alt="Laella Tarot, foto 4" loading="lazy">
         <img class="sobre-slide" src="assets/imagens/sobre5.jpg" alt="Laella Tarot, foto 5" loading="lazy">
         <img class="sobre-slide" src="assets/imagens/sobre6.jpg" alt="Laella Tarot, foto 6" loading="lazy">
-        <button type="button" class="sobre-seta prev" aria-label="Foto anterior">‹</button>
-        <button type="button" class="sobre-seta next" aria-label="Próxima foto">›</button>
+        <button type="button" class="sobre-seta prev" aria-label="Foto anterior" data-i18n-aria="aria_foto_anterior">‹</button>
+        <button type="button" class="sobre-seta next" aria-label="Próxima foto" data-i18n-aria="aria_proxima_foto">›</button>
         <div class="sobre-dots"></div>
       </div>
     </div>
   </section>
 
   <section id="consultas" class="section-inner">
-    <h2 class="titulo-secao">Escolha seu tipo de consulta</h2>
+    <h2 class="titulo-secao" data-i18n="consultas_titulo">Escolha seu tipo de consulta</h2>
     <div class="categorias" id="categorias"></div>
   </section>
 
   <div id="cardapio"></div>
 
   <section id="horarios" class="section-inner">
-    <h2 class="titulo-secao">Horários de Funcionamento</h2>
+    <h2 class="titulo-secao" data-i18n="horarios_titulo">Horários de Funcionamento</h2>
     <div class="horarios-grid">
       <div class="horario-card">
         <div class="horario-bloco">
           <span class="horario-icone">✧</span>
-          <h3>Segunda a Sexta</h3>
-          <strong>13:30 às 18:00</strong>
-          <p>Alguns dias eu vou abrir a mesa do jogo para receber pessoas que não podem na tarde. Então posso atender alguns agendados a partir das 22h.</p>
+          <h3 data-i18n="horario_dias1">Segunda a Sexta</h3>
+          <strong>13:30 – 18:00</strong>
+          <p data-i18n="horario_texto1">Alguns dias eu vou abrir a mesa do jogo para receber pessoas que não podem na tarde. Então posso atender alguns agendados a partir das 22h.</p>
         </div>
         <div class="horario-divisor"><span>☽ ● ☾</span></div>
         <div class="horario-bloco">
-          <h3>Sábado e Domingo</h3>
-          <strong>18:00 às 22:00</strong>
-          <p>Reserve o seu horário com antecedência.</p>
+          <h3 data-i18n="horario_dias2">Sábado e Domingo</h3>
+          <strong>18:00 – 22:00</strong>
+          <p data-i18n="horario_texto2">Reserve o seu horário com antecedência.</p>
         </div>
       </div>
     </div>
-    <p class="horarios-frase">ᛉ &nbsp;Seu momento é sagrado&nbsp; ᛉ</p>
+    <p class="horarios-frase">ᛉ &nbsp;<span data-i18n="horarios_frase">Seu momento é sagrado</span>&nbsp; ᛉ</p>
   </section>
 
   <footer>
     <div id="contato" class="section-inner footer-conteudo">
       <img src="assets/imagens/logo.png" alt="Laella Tarot">
       <ul class="footer-nav">
-        <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#consultas">Consultas</a></li>
-        <li><a href="#horarios">Horários</a></li>
-        <li><a href="#contato">Contato</a></li>
+        <li><a href="#sobre" data-i18n="nav_sobre">Sobre</a></li>
+        <li><a href="#consultas" data-i18n="nav_consultas">Consultas</a></li>
+        <li><a href="#horarios" data-i18n="nav_horarios">Horários</a></li>
+        <li><a href="#contato" data-i18n="nav_contato">Contato</a></li>
       </ul>
       <div class="footer-social">
         <a href="https://www.instagram.com/laetarot/" target="_blank" rel="noopener" aria-label="Instagram">
           <svg viewBox="0 0 24 24"><path d="M12 2c2.7 0 3.05.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.15.55.55.9 1.11 1.15 1.77.25.64.42 1.37.47 2.43.05 1.07.06 1.42.06 4.12s-.01 3.05-.06 4.12c-.05 1.06-.22 1.79-.47 2.43-.26.66-.6 1.22-1.15 1.77-.55.55-1.11.9-1.77 1.15-.64.25-1.37.42-2.43.47-1.07.05-1.42.06-4.12.06s-3.05-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47-.66-.26-1.22-.6-1.77-1.15-.55-.55-.9-1.11-1.15-1.77-.25-.64-.42-1.37-.47-2.43C2.01 15.05 2 14.7 2 12s.01-3.05.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.15-1.77.55-.55 1.11-.9 1.77-1.15.64-.25 1.37-.42 2.43-.47C8.95 2.01 9.3 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10zm0 8.2a3.2 3.2 0 110-6.4 3.2 3.2 0 010 6.4zm5.4-8.4a1.2 1.2 0 100-2.4 1.2 1.2 0 000 2.4z"/></svg>
         </a>
-        <a data-agendar="Olá! Vim pelo site e gostaria de agendar uma consulta." target="_blank" rel="noopener" aria-label="WhatsApp">
+        <a data-agendar-key="footer" target="_blank" rel="noopener" aria-label="WhatsApp">
           <svg viewBox="0 0 24 24"><path d="M12.02 2C6.5 2 2.03 6.48 2.03 12c0 1.77.46 3.44 1.27 4.89L2 22l5.25-1.27a9.9 9.9 0 004.77 1.22h.01c5.52 0 10-4.48 10-10S17.54 2 12.02 2zm4.52 12c-.25-.13-1.47-.72-1.7-.8-.23-.08-.4-.13-.56.13-.17.25-.65.8-.8.97-.15.17-.3.19-.55.06-.25-.13-1.06-.39-2.02-1.24-.75-.66-1.25-1.48-1.4-1.73-.15-.25-.02-.39.11-.51.11-.11.25-.3.37-.44.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.23.9 2.42 1.02 2.58.13.17 1.77 2.7 4.28 3.79.6.26 1.06.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.48-.29z"/></svg>
         </a>
       </div>
     </div>
-    <div class="footer-copy">© 2026 Laella Tarot. Todos os direitos reservados. · ᛉ ☾ ᛟ</div>
-    <div class="footer-credito">Website desenvolvido por <a href="https://amplifying.com.br/servicos" target="_blank" rel="noopener">AMPLIFYING</a></div>
+    <div class="footer-copy">
+      <span data-i18n="footer_copy">© 2026 Laella Tarot. Todos os direitos reservados.</span> · ᛉ ☾ ᛟ
+      <span class="footer-lang-inline">
+        <span class="separador" aria-hidden="true">·</span>
+        <button type="button" class="lang-btn-footer" data-lang="pt" aria-label="Mudar para Português" aria-pressed="true">PT</button>
+        <span class="separador" aria-hidden="true">·</span>
+        <button type="button" class="lang-btn-footer" data-lang="en" aria-label="Switch to English" aria-pressed="false">EN</button>
+      </span>
+    </div>
+    <div class="footer-credito"><span data-i18n="footer_credito">Website desenvolvido por</span> <a href="https://amplifying.com.br/servicos" target="_blank" rel="noopener">AMPLIFYING</a></div>
   </footer>
 
   <script>
@@ -341,6 +377,92 @@
     // Troque pelo WhatsApp da Laella (DDI + DDD + número, só dígitos). Se deixar vazio, os botões abrem o Instagram.
     const WHATSAPP = "554898046732";
     const INSTAGRAM = "laetarot";
+    let idiomaAtual = 'pt';
+
+    // ===== IDIOMA =====
+    // Textos fixos do site (fora do cardápio). Edite aqui se quiser ajustar alguma frase.
+    const traducoes = {
+      pt: {
+        html_lang: "pt-BR",
+        title: "Laella Tarot | Taróloga e Magista",
+        meta_description: "Taróloga e magista. Tarot, baralho cigano, oráculo de Exu e runas nórdicas em consultas acolhedoras e sinceras.",
+        nav_sobre: "Sobre",
+        nav_consultas: "Consultas",
+        nav_horarios: "Horários",
+        nav_contato: "Contato",
+        btn_agendar: "Agendar",
+        hero_tagline: "Taróloga & Magista",
+        hero_paragrafo: "Onde o invisível encontra a intuição. Leia os sinais, ouça o oculto: tarot, runas e oráculos para iluminar o seu caminho.",
+        tag_runas: "RUNAS",
+        tag_magia: "MAGIA NÓRDICA",
+        sobre_titulo: "Leia os sinais, ouça o oculto",
+        sobre_paragrafo: "Me chamo Larissa, ou melhor, Laella! Sou taróloga e magista, leonina com ascendente em Aquário. Desde os 18 anos caminho pelo tarot e pela magia do caos, e hoje trabalho também com baralho cigano, oráculo de Exu e runas nórdicas. Minhas consultas são acolhedoras e sinceras, pra qualquer pessoa, de qualquer lugar do mundo. Escolha abaixo a leitura que combina com o seu momento!",
+        consultas_titulo: "Escolha seu tipo de consulta",
+        horarios_titulo: "Horários de Funcionamento",
+        horario_dias1: "Segunda a Sexta",
+        horario_texto1: "Alguns dias eu vou abrir a mesa do jogo para receber pessoas que não podem na tarde. Então posso atender alguns agendados a partir das 22h.",
+        horario_dias2: "Sábado e Domingo",
+        horario_texto2: "Reserve o seu horário com antecedência.",
+        horarios_frase: "Seu momento é sagrado",
+        footer_copy: "© 2026 Laella Tarot. Todos os direitos reservados.",
+        footer_credito: "Website desenvolvido por",
+        aria_foto_anterior: "Foto anterior",
+        aria_proxima_foto: "Próxima foto",
+        aria_abrir_menu: "Abrir menu",
+        aria_foto: n => "Foto " + n,
+        aria_carrossel_anterior: "Anterior",
+        aria_carrossel_proximo: "Próximo",
+        aria_virar_verso: "Virar a carta de volta",
+        saiba_mais: "Saiba mais",
+        o_que_a_leitura_traz: "O que a leitura traz",
+        agendar_msg: {
+          header: "Olá! Gostaria de agendar uma consulta.",
+          footer: "Olá! Vim pelo site e gostaria de agendar uma consulta.",
+        },
+        msg_rapida: nome => `Olá! Gostaria de uma Consulta Rápida de *${nome}*! Quando podemos marcar nossa consulta?`,
+        msg_padrao: (titulo, nome) => `Olá! Gostaria de uma consulta de ${titulo}, *${nome}*! Quando podemos marcar nossa consulta?`,
+      },
+      en: {
+        html_lang: "en",
+        title: "Laella Tarot | Tarot Reader & Mystic",
+        meta_description: "Tarot reader and mystic. Tarot, Gypsy cards, Exu oracle and Norse runes in warm, honest readings.",
+        nav_sobre: "About",
+        nav_consultas: "Readings",
+        nav_horarios: "Schedules",
+        nav_contato: "Contact",
+        btn_agendar: "Book Now",
+        hero_tagline: "Tarot Reader & Mystic",
+        hero_paragrafo: "Where the unseen meets intuition. Read the signs, hear the unspoken: tarot, runes and oracles to light your path.",
+        tag_runas: "RUNES",
+        tag_magia: "NORSE MAGIC",
+        sobre_titulo: "Read the signs, hear the unseen",
+        sobre_paragrafo: "My name is Larissa — or rather, Laella! I'm a tarot reader and mystic, a Leo with Aquarius rising. Since I was 18 I've walked the path of tarot and chaos magic, and today I also work with Gypsy cards, the Exu oracle and Norse runes. My readings are warm and honest, for anyone, from anywhere in the world. Choose the reading below that matches your moment!",
+        consultas_titulo: "Choose your type of reading",
+        horarios_titulo: "Schedules",
+        horario_dias1: "Monday to Friday",
+        horario_texto1: "On some days I open extra sessions for people who can't make it in the afternoon, so I may be able to fit in appointments from 10pm.",
+        horario_dias2: "Saturday and Sunday",
+        horario_texto2: "Book your time in advance.",
+        horarios_frase: "Your moment is sacred",
+        footer_copy: "© 2026 Laella Tarot. All rights reserved.",
+        footer_credito: "Website developed by",
+        aria_foto_anterior: "Previous photo",
+        aria_proxima_foto: "Next photo",
+        aria_abrir_menu: "Open menu",
+        aria_foto: n => "Photo " + n,
+        aria_carrossel_anterior: "Previous",
+        aria_carrossel_proximo: "Next",
+        aria_virar_verso: "Flip card back",
+        saiba_mais: "Learn more",
+        o_que_a_leitura_traz: "What the reading brings",
+        agendar_msg: {
+          header: "Hi! I'd like to book a reading.",
+          footer: "Hi! I found you through the website and I'd like to book a reading.",
+        },
+        msg_rapida: nome => `Hi! I'd like a Quick Reading of *${nome}*! When can we schedule our session?`,
+        msg_padrao: (titulo, nome) => `Hi! I'd like a ${titulo} reading, *${nome}*! When can we schedule our session?`,
+      },
+    };
 
     // ===== CARDÁPIO ===== (edite nomes, descrições, valores e tópicos aqui)
     // nome, sub (subtítulo), desc, preco, inclui (lista opcional do que a leitura traz)
@@ -381,6 +503,44 @@
       ]},
     ];
 
+    // ===== CARDÁPIO EM INGLÊS ===== (mesma estrutura e mesmos ids do array "grupos" acima)
+    const gruposEN = [
+      { id: "rapidas", icone: "ᚠ", titulo: "Quick Readings", desc: "Direct answers for your moment", itens: [
+        { nome: "1 Question", desc: "One answer, one path.", preco: 20 },
+        { nome: "3 Questions", desc: "More clarity, more direction.", preco: 35 },
+        { nome: "Yes or No Question", sub: "price per question", desc: "A clear, straightforward answer.", preco: 10 },
+        { nome: "Norse Runes", desc: "Ancestral guidance and wisdom.", preco: 55 },
+        { nome: "The Royal Spread", desc: "A deep and complete connection.", preco: 90 },
+      ]},
+      { id: "gerais", icone: "☾", titulo: "Paths & Prosperity", desc: "Full readings on where you stand in life", itens: [
+        { nome: "The Völva's Prophecy", sub: "General reading", desc: "Understand the moment you're in and the paths that are beginning to reveal themselves.", preco: 35, inclui: ["Current moment","Paths ahead","Love","Finances","Spirituality","Final advice"] },
+        { nome: "The Moon's Cycle", sub: "Monthly reading", desc: "The main energies, events and possibilities of the month.", preco: 50, inclui: ["General energy of the month","Love and relationships","Work and finances","Personal and emotional life","Main challenge","Opportunity arising","What needs to be left behind","Advice for the month","Guidance rune"] },
+        { nome: "The Warrior's Path", sub: "Decisions and obstacles", desc: "For anyone who needs to make a decision, overcome obstacles or discover which path favors them.", preco: 110, inclui: ["Where am I?","What is blocking me?","What am I not seeing?","Which path is favorable?","Next steps","Advice"] },
+        { nome: "The Gypsy's Gold", sub: "Financial life", desc: "Understand your financial life, opportunities and paths to prosperity.", preco: 120, inclui: ["Current financial situation","Blockages","Opportunities","Work and business","Paths ahead","Advice"] },
+        { nome: "Beneath the Veil", sub: "Deep reading", desc: "Investigate a situation in greater detail and understand what remains hidden.", preco: 160, inclui: ["Unexpressed feelings","Repeating patterns","Influences","What is hidden","Future possibilities","Deep advice"] },
+      ]},
+      { id: "amor", icone: "ᛜ", titulo: "Love & Relationships", desc: "Feelings, bonds and matters of the heart", itens: [
+        { nome: "Freyja's Threads", sub: "Love reading", desc: "Understand feelings, intentions and possibilities between two people.", preco: 60, inclui: ["What do they feel for me?","What don't they show?","What are their intentions?","What exists between us?","Blocks in the connection","Trends for the coming months","Advice"] },
+        { nome: "Padilha's Rose", sub: "Love, desire and personal power", desc: "About love, desire, self-esteem and your position within a relationship.", preco: 140, inclui: ["How am I perceived?","Is there desire?","What do I awaken in this person?","What can I strengthen in myself?","How can I reclaim my personal power?","Trend of the relationship"] },
+        { nome: "The Blooming Rose", sub: "For those who are single", desc: "Understand your romantic paths and the possibility of a new encounter.", preco: 140, inclui: ["What kind of person may appear?","What energy does this person carry?","How might the encounter happen?","What is blocking love?","What needs to be let go?","Romantic trend","Advice"] },
+        { nome: "The Veil of Friendship", sub: "Friendship analysis", desc: "The true dynamics of a friendship: feelings, intentions, loyalties and influences.", preco: 50, inclui: ["What truly exists in this friendship?","How does this person see me?","What are their true intentions?","Envy, competition or resentment?","Is there third-party influence?","Is the friendship growing stronger or drifting apart?","Final advice"] },
+      ]},
+      { id: "magia", icone: "ᛉ", titulo: "Magic & Protection", desc: "Protection, transformation and spiritual guidance", itens: [
+        { nome: "Wings of the Night", sub: "Exu Morcego", desc: "Paths, protection, transformation and what needs to be left behind.", preco: 140, inclui: ["Protection","Paths","Obstacles","Blockages","Transformations","Advice"] },
+        { nome: "The Spellcaster's Path", sub: "Magical guidance", desc: "Find out whether a spell is fitting, which magical path is most aligned, and what precautions to take.", preco: 80, inclui: ["What is the intention of the work?","Is the moment favorable?","Which magical path can be used?","What should be avoided?","Associated elements and energies","How to direct the intention","Final advice for the work"] },
+        { nome: "Traces of the Occult", sub: "Analysis of spiritual demands and influences", desc: "For those who suspect a spiritual demand, magic, envy or influence.", preco: 70, inclui: ["What is the current energy of the situation?","Are there symbolic signs of interference?","Does it seem intentional or circumstantial?","What might be mistaken for a demand?","How does it affect the person?","Is spiritual protection or cleansing needed?","Final advice + Rune"] },
+      ]},
+      { id: "ancestral", icone: "ᛟ", titulo: "Ancestral & Self-Knowledge", desc: "Readings that look inward and toward your roots", itens: [
+        { nome: "The Oracle of Bones", sub: "Ancestral reading", desc: "An intuitive bone-reading to observe signs, paths, blocks and possibilities.", preco: 80, inclui: ["Current energy of the situation","What is hidden","Influences around you","Blocks and obstacles","What needs to be understood","What is approaching","Path that tends to open","Advice from the Bones"] },
+        { nome: "The Soul's Arcana", sub: "Your personal Major Arcana", desc: "Discover the Major Arcana tied to your birth date and what it reveals about your path.", preco: 50, inclui: ["Calculation of your personal Major Arcana","Deep meaning","Potentials and talents","Challenges and lessons","Patterns that may repeat","Light and shadow of the Arcana","Advice from your Arcana","Complementary rune"] },
+        { nome: "Loki's Whisper", sub: "Oracle reading of Loki", desc: "For moments of change, truths to be seen, and what no longer sustains you.", preco: 50, inclui: ["Changes and new beginnings","Confusing or unexpected situations","Truths that need to be seen","Patterns that need to be broken","Relationships and conflicts","Decisions and new paths","Advice facing a transformation"] },
+      ]},
+      { id: "familia", icone: "✦", titulo: "Pets & Children", desc: "Gentle readings for those you care for", itens: [
+        { nome: "The Whisper of Animals", sub: "Pet consultation", desc: "Better understand your animal's feelings, behaviors and needs.", preco: 70, inclui: ["How your pet is feeling","What they would like to communicate","How they perceive you and their surroundings","Fears, discomforts or changes","What they might need","A message from your pet to you","Advice to strengthen the bond"] },
+        { nome: "The Moon's Charm", sub: "Consultation for children", desc: "A gentle reading on the child's emotional state and what they need to feel supported.", preco: 60, inclui: ["How the child is feeling","Emotions that are hard to express","Fears, insecurities and blocks","How they perceive their surroundings","Emotional needs","Points of comfort and strengthening","Advice for caregivers"] },
+      ]},
+    ];
+
     // ===== RENDER =====
     function linkAgendar(msg) {
       return WHATSAPP
@@ -392,94 +552,103 @@
     const nav = document.getElementById('categorias');
     const cardapio = document.getElementById('cardapio');
 
-    grupos.forEach(g => {
-      nav.insertAdjacentHTML('beforeend',
-        `<a href="#${g.id}" class="categoria-item"><div class="categoria-img">${g.icone}</div><span>${g.titulo}</span></a>`);
+    function renderCardapio(lang) {
+      const t = traducoes[lang];
+      const dados = lang === 'en' ? gruposEN : grupos;
+      nav.innerHTML = '';
+      cardapio.innerHTML = '';
 
-      const sec = document.createElement('section');
-      sec.id = g.id;
-      sec.className = 'menu-secao section-inner';
-      sec.innerHTML = `<div class="menu-titulo">${g.titulo}</div>
-        <div class="carrossel-wrap">
-          <button type="button" class="carrossel-seta" aria-label="Anterior">‹</button>
-          <div class="carrossel-viewport"><div class="menu-grid"></div></div>
-          <button type="button" class="carrossel-seta" aria-label="Próximo">›</button>
-        </div>`;
-      const grid = sec.querySelector('.menu-grid');
+      dados.forEach(g => {
+        nav.insertAdjacentHTML('beforeend',
+          `<a href="#${g.id}" class="categoria-item"><div class="categoria-img">${g.icone}</div><span>${g.titulo}</span></a>`);
 
-      const romano = n => ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX'][n - 1] || n;
-      g.itens.forEach((s, idx) => {
-        const card = document.createElement('div');
-        card.className = 'servico-card';
-        const inclui = s.inclui ? `<span class="verso-inclui-titulo">O que a leitura traz</span><ul>${s.inclui.map(i => `<li>${i}</li>`).join('')}</ul>` : '';
-        const msgAgendar = g.id === 'rapidas'
-          ? `Olá! Gostaria de uma Consulta Rápida de *${s.nome}*! Quando podemos marcar nossa consulta?`
-          : `Olá! Gostaria de uma consulta de ${g.titulo}, *${s.nome}*! Quando podemos marcar nossa consulta?`;
-        card.innerHTML = `
-          <div class="carta-inner">
-            <div class="face frente">
-              <span class="num">${romano(idx + 1)}</span>
-              <span class="runa">${g.icone}</span>
-              <h3>${s.nome}</h3>
-              <span class="sub">${s.sub || ''}</span>
-              <button type="button" class="btn btn-saiba-mais">Saiba mais</button>
-            </div>
-            <div class="face verso" inert>
-              <button type="button" class="voltar" aria-label="Virar a carta de volta">↺</button>
-              <h3>${s.nome}</h3>
-              ${s.sub ? `<span class="sub">${s.sub}</span>` : ''}
-              <div class="verso-corpo">
-                <p class="verso-desc">${s.desc}</p>
-                ${inclui}
-              </div>
-              <div class="verso-rodape">
-                <strong>${brl(s.preco)}</strong>
-                <a class="btn" href="${linkAgendar(msgAgendar)}" target="_blank" rel="noopener">Agendar</a>
-              </div>
-            </div>
+        const sec = document.createElement('section');
+        sec.id = g.id;
+        sec.className = 'menu-secao section-inner';
+        sec.innerHTML = `<div class="menu-titulo">${g.titulo}</div>
+          <div class="carrossel-wrap">
+            <button type="button" class="carrossel-seta" aria-label="${t.aria_carrossel_anterior}">‹</button>
+            <div class="carrossel-viewport"><div class="menu-grid"></div></div>
+            <button type="button" class="carrossel-seta" aria-label="${t.aria_carrossel_proximo}">›</button>
           </div>`;
-        card.querySelector('.frente').addEventListener('click', () => virar(card, true));
-        card.querySelector('.voltar').addEventListener('click', () => virar(card, false));
-        // arrastar com o mouse pra rolar o texto do verso (no toque a rolagem já é nativa)
-        const verso = card.querySelector('.verso'), corpo = card.querySelector('.verso-corpo');
-        let arrastando = false, y0 = 0, topo0 = 0;
-        verso.addEventListener('pointerdown', e => {
-          if (e.pointerType !== 'mouse' || e.button !== 0 || e.target.closest('button, a')) return;
-          if (corpo.scrollHeight <= corpo.clientHeight) return;
-          arrastando = true; y0 = e.clientY; topo0 = corpo.scrollTop;
-          verso.setPointerCapture(e.pointerId); verso.classList.add('arrastando');
-        });
-        verso.addEventListener('pointermove', e => { if (arrastando) corpo.scrollTop = topo0 - (e.clientY - y0); });
-        const soltar = () => { arrastando = false; verso.classList.remove('arrastando'); };
-        verso.addEventListener('pointerup', soltar);
-        verso.addEventListener('pointercancel', soltar);
-        // toque no celular: segurar em qualquer ponto do verso e arrastar rola o texto
-        let ty0 = 0, ttopo0 = 0, tmodo = null;
-        verso.addEventListener('touchstart', e => {
-          if (e.touches.length !== 1 || e.target.closest('a')) { tmodo = 'nativo'; return; }
-          ty0 = e.touches[0].clientY; ttopo0 = corpo.scrollTop; tmodo = null;
-        }, { passive: true });
-        verso.addEventListener('touchmove', e => {
-          if (tmodo === 'nativo') return;
-          const dy = e.touches[0].clientY - ty0;
-          if (tmodo === null) {
-            if (Math.abs(dy) < 4) return;
-            const max = corpo.scrollHeight - corpo.clientHeight;
-            const podeRolar = max > 0 && ((dy < 0 && corpo.scrollTop < max) || (dy > 0 && corpo.scrollTop > 0));
-            tmodo = podeRolar ? 'texto' : 'nativo';
-            if (tmodo === 'nativo') return;
-          }
-          corpo.scrollTop = ttopo0 - dy;
-          e.preventDefault();
-        }, { passive: false });
-        verso.addEventListener('touchend', () => { tmodo = null; });
-        grid.appendChild(card);
-      });
-      cardapio.appendChild(sec);
-      initCarrossel(sec);
-    });
+        const grid = sec.querySelector('.menu-grid');
 
-    document.querySelectorAll('[data-agendar]').forEach(a => a.href = linkAgendar(a.dataset.agendar));
+        const romano = n => ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX'][n - 1] || n;
+        g.itens.forEach((s, idx) => {
+          const card = document.createElement('div');
+          card.className = 'servico-card';
+          const inclui = s.inclui ? `<span class="verso-inclui-titulo">${t.o_que_a_leitura_traz}</span><ul>${s.inclui.map(i => `<li>${i}</li>`).join('')}</ul>` : '';
+          const msgAgendar = g.id === 'rapidas'
+            ? t.msg_rapida(s.nome)
+            : t.msg_padrao(g.titulo, s.nome);
+          card.innerHTML = `
+            <div class="carta-inner">
+              <div class="face frente">
+                <span class="num">${romano(idx + 1)}</span>
+                <span class="runa">${g.icone}</span>
+                <h3>${s.nome}</h3>
+                <span class="sub">${s.sub || ''}</span>
+                <button type="button" class="btn btn-saiba-mais">${t.saiba_mais}</button>
+              </div>
+              <div class="face verso" inert>
+                <button type="button" class="voltar" aria-label="${t.aria_virar_verso}">↺</button>
+                <h3>${s.nome}</h3>
+                ${s.sub ? `<span class="sub">${s.sub}</span>` : ''}
+                <div class="verso-corpo">
+                  <p class="verso-desc">${s.desc}</p>
+                  ${inclui}
+                </div>
+                <div class="verso-rodape">
+                  <strong>${brl(s.preco)}</strong>
+                  <a class="btn" href="${linkAgendar(msgAgendar)}" target="_blank" rel="noopener">${t.btn_agendar}</a>
+                </div>
+              </div>
+            </div>`;
+          card.querySelector('.frente').addEventListener('click', () => virar(card, true));
+          card.querySelector('.voltar').addEventListener('click', () => virar(card, false));
+          // arrastar com o mouse pra rolar o texto do verso (no toque a rolagem já é nativa)
+          const verso = card.querySelector('.verso'), corpo = card.querySelector('.verso-corpo');
+          let arrastando = false, y0 = 0, topo0 = 0;
+          verso.addEventListener('pointerdown', e => {
+            if (e.pointerType !== 'mouse' || e.button !== 0 || e.target.closest('button, a')) return;
+            if (corpo.scrollHeight <= corpo.clientHeight) return;
+            arrastando = true; y0 = e.clientY; topo0 = corpo.scrollTop;
+            verso.setPointerCapture(e.pointerId); verso.classList.add('arrastando');
+          });
+          verso.addEventListener('pointermove', e => { if (arrastando) corpo.scrollTop = topo0 - (e.clientY - y0); });
+          const soltar = () => { arrastando = false; verso.classList.remove('arrastando'); };
+          verso.addEventListener('pointerup', soltar);
+          verso.addEventListener('pointercancel', soltar);
+          // toque no celular: segurar em qualquer ponto do verso e arrastar rola o texto
+          let ty0 = 0, ttopo0 = 0, tmodo = null;
+          verso.addEventListener('touchstart', e => {
+            if (e.touches.length !== 1 || e.target.closest('a')) { tmodo = 'nativo'; return; }
+            ty0 = e.touches[0].clientY; ttopo0 = corpo.scrollTop; tmodo = null;
+          }, { passive: true });
+          verso.addEventListener('touchmove', e => {
+            if (tmodo === 'nativo') return;
+            const dy = e.touches[0].clientY - ty0;
+            if (tmodo === null) {
+              if (Math.abs(dy) < 4) return;
+              const max = corpo.scrollHeight - corpo.clientHeight;
+              const podeRolar = max > 0 && ((dy < 0 && corpo.scrollTop < max) || (dy > 0 && corpo.scrollTop > 0));
+              tmodo = podeRolar ? 'texto' : 'nativo';
+              if (tmodo === 'nativo') return;
+            }
+            corpo.scrollTop = ttopo0 - dy;
+            e.preventDefault();
+          }, { passive: false });
+          verso.addEventListener('touchend', () => { tmodo = null; });
+          grid.appendChild(card);
+        });
+        cardapio.appendChild(sec);
+        initCarrossel(sec);
+      });
+
+      document.querySelectorAll('[data-agendar-key]').forEach(a => {
+        a.href = linkAgendar(t.agendar_msg[a.dataset.agendarKey]);
+      });
+    }
 
     // ===== CARROSSEL =====
     function itensVisiveis() {
@@ -528,11 +697,28 @@
     }
 
     // ===== VIRAR CARTA =====
+    function espalharEstrelas(card) {
+      const qtd = 9;
+      for (let i = 0; i < qtd; i++) {
+        const estrela = document.createElement('span');
+        estrela.className = 'estrela-flip';
+        const tamanho = 4 + Math.random() * 6; // 4px a 10px
+        estrela.style.width = tamanho + 'px';
+        estrela.style.height = tamanho + 'px';
+        estrela.style.left = (Math.random() * 90 + 5) + '%'; // 5% a 95%
+        estrela.style.top = (Math.random() * 90 + 5) + '%';
+        estrela.style.animationDelay = (Math.random() * 250) + 'ms';
+        estrela.addEventListener('animationend', () => estrela.remove());
+        card.appendChild(estrela);
+      }
+    }
+
     function virar(card, ligar) {
       if (ligar) document.querySelectorAll('.servico-card.virada').forEach(c => { if (c !== card) virar(c, false); });
       card.classList.toggle('virada', ligar);
       card.querySelector('.frente').inert = ligar;
       card.querySelector('.verso').inert = !ligar;
+      espalharEstrelas(card);
     }
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') document.querySelectorAll('.servico-card.virada').forEach(c => virar(c, false));
@@ -551,7 +737,7 @@
       let atual = 0, timer;
       const dots = [...slides].map((_, i) => {
         const d = document.createElement('button');
-        d.type = 'button'; d.className = 'sobre-dot'; d.setAttribute('aria-label', 'Foto ' + (i + 1));
+        d.type = 'button'; d.className = 'sobre-dot'; d.dataset.foto = i + 1; d.setAttribute('aria-label', traducoes[idiomaAtual].aria_foto(i + 1));
         d.addEventListener('click', () => { ir(i); reiniciar(); });
         dotsBox.appendChild(d); return d;
       });
@@ -578,6 +764,52 @@
       dots[0].classList.add('ativo');
       iniciar();
     })();
+
+    // ===== TROCA DE IDIOMA =====
+    function setLanguage(lang) {
+      const t = traducoes[lang];
+      idiomaAtual = lang;
+
+      // textos e atributos marcados no HTML
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+        const key = el.getAttribute('data-i18n-aria');
+        if (t[key] !== undefined) el.setAttribute('aria-label', t[key]);
+      });
+
+      // metadados
+      document.documentElement.lang = t.html_lang;
+      document.title = t.title;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) metaDesc.setAttribute('content', t.meta_description);
+
+      // pontinhos do slider "Sobre"
+      document.querySelectorAll('.sobre-dot').forEach(d => {
+        d.setAttribute('aria-label', t.aria_foto(d.dataset.foto));
+      });
+
+      // bandeirinhas (header) e texto PT · EN (rodapé) — todos os elementos com data-lang
+      document.querySelectorAll('[data-lang]').forEach(el => {
+        const ativo = el.dataset.lang === lang;
+        el.classList.toggle('ativo', ativo);
+        el.setAttribute('aria-pressed', String(ativo));
+      });
+
+      // cardápio (nomes, descrições, preços, links de agendamento)
+      renderCardapio(lang);
+
+      localStorage.setItem('laella_idioma', lang);
+    }
+
+    document.querySelectorAll('[data-lang]').forEach(btn => {
+      btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+    });
+
+    const idiomaSalvo = localStorage.getItem('laella_idioma');
+    setLanguage(idiomaSalvo === 'en' ? 'en' : 'pt');
   </script>
 </body>
 </html>
